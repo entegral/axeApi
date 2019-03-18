@@ -5,8 +5,8 @@ const DisplayAxeResult = (props) =>{
     console.log('props',props);
     return(
     <div>
-      {props.axeResult.map((testedPage)=>
-      <div >
+      {props.axeResult.map((testedPage, index)=>
+      <div key={index}>
         <h4>Results for {testedPage.url}</h4>
         <ul>
           <li>Number of Inapplicable Tests = {testedPage.inapplicable.length}</li>
