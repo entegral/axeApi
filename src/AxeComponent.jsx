@@ -1,28 +1,41 @@
 import React from 'react';
 import {mockData} from './mockApiData';
 
+const DisplayAxeResult = (props) =>{
+    console.log('props',props);
+    return(
+    <div>
+      {props.axeResult.map((testedPage)=>
+      <div >
+        <h4>Results for {testedPage.url}</h4>
+        <ul>
+          <li>Number of Inapplicable Tests = {testedPage.inapplicable.length}</li>
+          <li>Number of Incomplete Tests = {testedPage.incomplete.length}</li>
+          <li>Number of Passing Tests = {testedPage.passes.length}</li>
+        </ul>
+      </div>
+
+      )}
+    </div>)
+  }
+
 
 class AxeComponent extends React.Component {
 
   constructor(props){
     super(props);
     this.state = {};
+    this.axeApi = this.axeApi.bind(this);
   }
 
-  axeApi(url){
-    return fetch(url)
-      .then((response)=>{
-        return response.json() })
-      .then((jsonResponse)=>{
-        this.setState({ axeResult: jsonResponse })
-      })
-  }
+  axeApi(){
+    return this.setState({ axeResult: mockData }) };
 
   render(){
     return (
       <React.Fragment>
-        <button></button>
-        {this.state.axeResult ? <div>state data detected</div> : <DisplayAxeResult axeResult = {mockData} />}
+        <button onClick={this.axeApi}>Call API </button>
+        {this.state.axeResult ? <DisplayAxeResult axeResult = {this.state.axeResult} /> : <div>No data in state</div>  }
 
     </React.Fragment>
     )
